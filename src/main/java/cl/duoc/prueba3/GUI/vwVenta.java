@@ -14,10 +14,7 @@ import cl.duoc.prueba3.Services.Implements.*;
 public class vwVenta extends javax.swing.JInternalFrame {
     
     listaVendedor listav;
-    
-    /**
-     * Creates new form vwVenta
-     */
+
     public vwVenta(listaVendedor listav) {
         initComponents();
         this.listav = listav;
