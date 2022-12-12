@@ -19,12 +19,13 @@ import javax.swing.JOptionPane;
 public class vwAgregarProducto extends javax.swing.JInternalFrame {
     
     Validaciones validar = new Validaciones();
-    listaProducto listap = new listaProducto();
+    listaProducto listap;
     /**
      * Creates new form vwAgregarProducto
      */
-    public vwAgregarProducto() {
+    public vwAgregarProducto(listaProducto listap) {
         initComponents();
+        this.listap = listap;
     }
 
     /**

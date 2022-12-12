@@ -22,4 +22,8 @@ public class listaProducto {
        }
        return String.valueOf(sr);
     }
+    
+    public List<Producto> listar(){
+        return lista;
+    }
 }

@@ -4,6 +4,8 @@
  */
 package cl.duoc.prueba3.GUI;
 
+import cl.duoc.prueba3.DTO.Cliente;
+import cl.duoc.prueba3.DTO.Producto;
 import cl.duoc.prueba3.DTO.Vendedor;
 import cl.duoc.prueba3.Services.Implements.*;
 
@@ -14,20 +16,39 @@ import cl.duoc.prueba3.Services.Implements.*;
 public class vwVenta extends javax.swing.JInternalFrame {
     
     listaVendedor listav;
-
-    public vwVenta(listaVendedor listav) {
+    listaProducto listap;
+    listaCliente listac;
+    
+    public vwVenta(listaVendedor listav, listaProducto listap, listaCliente listac) {
         initComponents();
         this.listav = listav;
-        Refrescar();
+        refrescarVendedor();
+        this.listap = listap;
+        refrescarProducto();
+        this.listac = listac;
+        refrescarCliente();
     }
     
-        private void Refrescar(){    
-        String lista = "";
-        for(Vendedor vendedor : this.listav.Listar()){
-            lista += vendedor.nombre.toString()+ "\n";
-            }
-            comboVendedor.addItem(lista);
+    private void refrescarVendedor(){   
+        comboVendedor.removeAllItems();
+        for(Vendedor vendedor : this.listav.listar()){
+            comboVendedor.addItem(vendedor.nombre);
         }
+    }
+    
+    private void refrescarProducto(){   
+    comboProducto.removeAllItems();
+        for(Producto producto : this.listap.listar()){
+            comboProducto.addItem(producto.getNombre());
+        }
+    }
+    
+    private void refrescarCliente(){   
+    comboCliente.removeAllItems();
+        for(Cliente cliente : this.listac.listar()){
+            comboCliente.addItem(cliente.getNombre());
+        }
+    }
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,7 +69,11 @@ public class vwVenta extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         comboVendedor = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        refrescarV = new javax.swing.JButton();
+        refrescarP = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        comboCliente = new javax.swing.JComboBox<>();
+        refrescarC = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -59,11 +84,9 @@ public class vwVenta extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Seleccione producto:");
 
-        comboProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setText("Seleccione litros: ");
 
-        jLabel4.setText("Seleccione cantidad:");
+        jLabel4.setText("Cantidad:");
 
         comboLitro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "500", "1", "2", "5", "10", "20" }));
 
@@ -76,10 +99,26 @@ public class vwVenta extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("Refrescar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        refrescarV.setText("Refrescar");
+        refrescarV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                refrescarVActionPerformed(evt);
+            }
+        });
+
+        refrescarP.setText("Refrescar");
+        refrescarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refrescarPActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Cliente:");
+
+        refrescarC.setText("Refrescar");
+        refrescarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refrescarCActionPerformed(evt);
             }
         });
 
@@ -88,33 +127,38 @@ public class vwVenta extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
-                                .addComponent(cantidadTxt))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cantidadTxt)
+                                    .addComponent(comboVendedor, 0, 89, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(comboLitro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboVendedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(comboProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(refrescarV)
+                            .addComponent(refrescarP)
+                            .addComponent(refrescarC, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(jButton1)))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +167,14 @@ public class vwVenta extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refrescarC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(comboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refrescarP))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -137,10 +187,10 @@ public class vwVenta extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(comboVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(refrescarV))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -152,32 +202,37 @@ public class vwVenta extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void refrescarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarVActionPerformed
         // TODO add your handling code here:
-        Refrescar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        refrescarVendedor();
+    }//GEN-LAST:event_refrescarVActionPerformed
 
-    /*public void llenarVendedores(){
-        List<String> vendedores = new ArrayList<String>();
-        vendedores = vwVendedor.listav.getVendedores();
-        System.out.println("aqui");
-        System.out.println(vendedores);
-        for(String vendedor : vendedores) {
-            comboVendedor.addItem(vendedor);
-        }
-    }*/
+    private void refrescarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarPActionPerformed
+        // TODO add your handling code here:
+        refrescarProducto();
+    }//GEN-LAST:event_refrescarPActionPerformed
+
+    private void refrescarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarCActionPerformed
+        // TODO add your handling code here:
+        refrescarCliente();
+    }//GEN-LAST:event_refrescarCActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantidadTxt;
+    private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboLitro;
     private javax.swing.JComboBox<String> comboProducto;
     private javax.swing.JComboBox<String> comboVendedor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton refrescarC;
+    private javax.swing.JButton refrescarP;
+    private javax.swing.JButton refrescarV;
     // End of variables declaration//GEN-END:variables
 }

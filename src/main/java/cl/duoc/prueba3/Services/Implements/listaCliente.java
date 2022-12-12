@@ -11,6 +11,9 @@ public class listaCliente {
         this.lista = new ArrayList();
     }
     
+    public List<Cliente> listar(){
+        return lista;
+    }
     
     public void agregarCliente(Cliente cliente){
         lista.add(cliente);

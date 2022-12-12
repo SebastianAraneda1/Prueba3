@@ -5,7 +5,7 @@
 package cl.duoc.prueba3;
 
 import cl.duoc.prueba3.GUI.*;
-import cl.duoc.prueba3.Services.Implements.listaVendedor;
+import cl.duoc.prueba3.Services.Implements.*;
 
 /**
  *
@@ -16,7 +16,9 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    listaCliente listac = new listaCliente();
     listaVendedor listav = new listaVendedor();
+    listaProducto listap = new listaProducto();
     public Principal() {
         initComponents();
     }
@@ -105,7 +107,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void agregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarClienteActionPerformed
         // TODO add your handling code here:
-        vwAgregarCliente registroCliente = new vwAgregarCliente();
+        vwAgregarCliente registroCliente = new vwAgregarCliente(listac);
         escritorio.add(registroCliente);
         registroCliente.setVisible(true);
     }//GEN-LAST:event_agregarClienteActionPerformed
@@ -119,14 +121,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
         // TODO add your handling code here:
-        vwAgregarProducto registroProducto = new vwAgregarProducto();
+        vwAgregarProducto registroProducto = new vwAgregarProducto(listap);
         escritorio.add(registroProducto);
         registroProducto.setVisible(true);
     }//GEN-LAST:event_agregarProductoActionPerformed
 
     private void compraItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compraItemActionPerformed
         // TODO add your handling code here:
-        vwVenta compra = new vwVenta(listav);
+        vwVenta compra = new vwVenta(listav, listap,listac);
         escritorio.add(compra);
         compra.setVisible(true);
     }//GEN-LAST:event_compraItemActionPerformed

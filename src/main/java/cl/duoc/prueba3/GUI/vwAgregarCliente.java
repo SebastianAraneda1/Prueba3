@@ -16,13 +16,14 @@ import javax.swing.JOptionPane;
 public class vwAgregarCliente extends javax.swing.JInternalFrame {
     
     Validaciones validar = new Validaciones();
-    listaCliente listac = new listaCliente();
+    listaCliente listac;
     
     /**
      * Creates new form vwAgregarCliente
      */
-    public vwAgregarCliente() {
+    public vwAgregarCliente(listaCliente listac) {
         initComponents();
+        this.listac = listac;
     }
 
     /**

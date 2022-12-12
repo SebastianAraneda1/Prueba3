@@ -20,7 +20,7 @@ public class listaVendedor {
         this.lista.add(vendedor);
     */
     
-    public List<Vendedor> Listar(){
+    public List<Vendedor> listar(){
         return lista;
     }
    
@@ -28,20 +28,15 @@ public class listaVendedor {
         lista.add(vendedor);
     }
     
-    /*public List<String> getVendedores(){
-        List<String> listaN = new ArrayList<String>();
-        for (Vendedor vendedor : lista) {
-            listaN.add(vendedor.nombre);
-        }
-        
-        return listaN;
-    }*/
-    
     public String imprimirListaVendedor(){
         StringBuilder sr = new StringBuilder();
         for (Vendedor vendedor : lista) {
             sr.append(vendedor.toString()+ "\n");
         }
         return String.valueOf(sr);
+    }
+    
+    public void largoVendedor(){
+        lista.size();
     }
 }
