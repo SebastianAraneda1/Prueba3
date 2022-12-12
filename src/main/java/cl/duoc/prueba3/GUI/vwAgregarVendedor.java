@@ -16,13 +16,14 @@ import javax.swing.JOptionPane;
 public class vwAgregarVendedor extends javax.swing.JInternalFrame {
     
     Validaciones validar = new Validaciones();
-    listaVendedor listav = new listaVendedor();
+    listaVendedor listav;
     
     /**
      * Creates new form vwAgregarVendedor
      */
-    public vwAgregarVendedor() {
+    public vwAgregarVendedor(listaVendedor listav) {
         initComponents();
+        this.listav = listav;
     }
 
     /**
@@ -170,7 +171,6 @@ public class vwAgregarVendedor extends javax.swing.JInternalFrame {
             vendedor.setCorreo(correo);
             listav.agregarVendedor(vendedor);
             mostrarVendedor.setText(listav.imprimirListaVendedor());
-            System.out.println(listav.getVendedores());
         }else{
             JOptionPane.showMessageDialog(null, "Ingrese un rut valido");
         }

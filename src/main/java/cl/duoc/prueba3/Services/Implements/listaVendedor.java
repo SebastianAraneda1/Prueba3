@@ -9,28 +9,33 @@ public class listaVendedor {
     
     public listaVendedor(){
         this.lista = new ArrayList();
+    }
         
-        Vendedor vendedor = new Vendedor();
+        /*Vendedor vendedor = new Vendedor();
         vendedor.rut = 208329812;
         vendedor.nombre = "Seba";
         vendedor.fono = 32782635;
         vendedor.correo = "seb.araneda@duocuc.cl";
         vendedor.direccion = "Los limoneros 4530";
         this.lista.add(vendedor);
+    */
+    
+    public List<Vendedor> Listar(){
+        return lista;
     }
    
     public void agregarVendedor(Vendedor vendedor){
         lista.add(vendedor);
     }
     
-    public List<String> getVendedores(){
+    /*public List<String> getVendedores(){
         List<String> listaN = new ArrayList<String>();
         for (Vendedor vendedor : lista) {
             listaN.add(vendedor.nombre);
         }
         
         return listaN;
-    }
+    }*/
     
     public String imprimirListaVendedor(){
         StringBuilder sr = new StringBuilder();
