@@ -15,6 +15,10 @@ public class listaProducto {
         lista.add(producto);
     }
     
+    public Producto getProductoIdx(int idx){
+       return lista.get(idx);
+    }
+    
     public String imprimirListaProducto(){
        StringBuilder sr = new StringBuilder();
        for (Producto producto : lista) {

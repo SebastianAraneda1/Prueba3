@@ -7,19 +7,24 @@ package cl.duoc.prueba3.GUI;
 import cl.duoc.prueba3.DTO.Cliente;
 import cl.duoc.prueba3.DTO.Producto;
 import cl.duoc.prueba3.DTO.Vendedor;
+import cl.duoc.prueba3.DTO.Venta;
 import cl.duoc.prueba3.Services.Implements.*;
+import cl.duoc.prueba3.Utils.Validaciones;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author sebas
  */
 public class vwVenta extends javax.swing.JInternalFrame {
-    
+    Validaciones validar = new Validaciones();
     listaVendedor listav;
     listaProducto listap;
     listaCliente listac;
+    listaVentas listVenta;
     
-    public vwVenta(listaVendedor listav, listaProducto listap, listaCliente listac) {
+    public vwVenta(listaVendedor listav, listaProducto listap, listaCliente listac, listaVentas listVenta) {
         initComponents();
         this.listav = listav;
         refrescarVendedor();
@@ -27,10 +32,11 @@ public class vwVenta extends javax.swing.JInternalFrame {
         refrescarProducto();
         this.listac = listac;
         refrescarCliente();
+        this.listVenta = listVenta;
     }
     
     private void refrescarVendedor(){   
-        comboVendedor.removeAllItems();
+    comboVendedor.removeAllItems();
         for(Vendedor vendedor : this.listav.listar()){
             comboVendedor.addItem(vendedor.nombre);
         }
@@ -68,12 +74,19 @@ public class vwVenta extends javax.swing.JInternalFrame {
         comboLitro = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         comboVendedor = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        botonComprar = new javax.swing.JButton();
         refrescarV = new javax.swing.JButton();
         refrescarP = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         comboCliente = new javax.swing.JComboBox<>();
         refrescarC = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaObservacion = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        fechaTxt = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        labelPago = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -92,10 +105,10 @@ public class vwVenta extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Seleccione vendedor:");
 
-        jButton1.setText("Comprar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonComprar.setText("Comprar");
+        botonComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonComprarActionPerformed(evt);
             }
         });
 
@@ -121,6 +134,20 @@ public class vwVenta extends javax.swing.JInternalFrame {
                 refrescarCActionPerformed(evt);
             }
         });
+
+        jLabel7.setText("Observaciones:");
+
+        areaObservacion.setColumns(20);
+        areaObservacion.setRows(5);
+        jScrollPane1.setViewportView(areaObservacion);
+
+        jLabel8.setText("Seleccione fecha de entrega:");
+
+        fechaTxt.setText("dd-mm-yyyy");
+
+        jLabel9.setText("Total a pagar:");
+
+        labelPago.setText("jLabel10");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,10 +182,21 @@ public class vwVenta extends javax.swing.JInternalFrame {
                             .addComponent(refrescarV)
                             .addComponent(refrescarP)
                             .addComponent(refrescarC, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(jLabel7)
+                    .addComponent(botonComprar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton1)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelPago)))))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +208,7 @@ public class vwVenta extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refrescarC))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(comboProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,18 +227,65 @@ public class vwVenta extends javax.swing.JInternalFrame {
                     .addComponent(comboVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(refrescarV))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(19, 19, 19))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(fechaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(labelPago))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(botonComprar)
+                .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private int calcularTotal(){
+        int productoIdx = comboProducto.getSelectedIndex();
+        int cantidad = Integer.parseInt(cantidadTxt.getText());
+        Producto producto = listap.getProductoIdx(productoIdx);
+        return cantidad * producto.getPrecio();
+    }
+    
+    private void botonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprarActionPerformed
         // TODO add your handling code here:
-        String comboV = String.valueOf(comboVendedor.getSelectedItem());
+        try{
+            String cliente = String.valueOf(comboCliente.getSelectedItem());
+            String producto = String.valueOf(comboProducto.getSelectedItem());
+            int litros = Integer.parseInt(String.valueOf(comboLitro.getSelectedItem()));
+            int cantidad = Integer.parseInt(cantidadTxt.getText());
+            String vendedor = String.valueOf(comboVendedor.getSelectedItem());
+            String obs = areaObservacion.getText();
+            LocalDate fechaEntrega = validar.formatearFecha(fechaTxt.getText());
+            
+            if(cantidad > 0 && !producto.trim().isEmpty() && !cliente.trim().isEmpty() && !vendedor.trim().isEmpty()){
+                Venta venta = new Venta();
+                venta.setCliente(cliente);
+                venta.setProducto(producto);
+                venta.setLiros(litros);
+                venta.setCantidad(cantidad);
+                venta.setVendedor(vendedor);
+                venta.setObervaciones(obs);
+                venta.setFechaEntrega(fechaEntrega);
+                venta.setFechaVenta(LocalDate.now());
+                venta.setTotalPago(calcularTotal());
+                labelPago.setText(String.valueOf(calcularTotal()));
+                listVenta.agregarVenta(venta);
+                JOptionPane.showMessageDialog(null, "Compra realizada con exito");
+            }else{
+                JOptionPane.showMessageDialog(null, "Ingrese datos correctos");
+            }
+        }catch(Exception e){
+            
+        }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonComprarActionPerformed
 
     private void refrescarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarVActionPerformed
         // TODO add your handling code here:
@@ -219,18 +304,25 @@ public class vwVenta extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaObservacion;
+    private javax.swing.JButton botonComprar;
     private javax.swing.JTextField cantidadTxt;
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboLitro;
     private javax.swing.JComboBox<String> comboProducto;
     private javax.swing.JComboBox<String> comboVendedor;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField fechaTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelPago;
     private javax.swing.JButton refrescarC;
     private javax.swing.JButton refrescarP;
     private javax.swing.JButton refrescarV;

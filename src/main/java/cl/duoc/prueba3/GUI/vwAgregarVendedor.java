@@ -17,10 +17,6 @@ public class vwAgregarVendedor extends javax.swing.JInternalFrame {
     
     Validaciones validar = new Validaciones();
     listaVendedor listav;
-    
-    /**
-     * Creates new form vwAgregarVendedor
-     */
     public vwAgregarVendedor(listaVendedor listav) {
         initComponents();
         this.listav = listav;

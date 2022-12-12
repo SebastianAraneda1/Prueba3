@@ -5,18 +5,26 @@ package cl.duoc.prueba3.DTO;
 import java.time.LocalDate;
 
 public class Venta {
+    public String cliente;
+    public String producto;
+    public String vendedor;
+    public int cantidad;
     public LocalDate fechaVenta;
     public LocalDate fechaEntrega;
     public String obervaciones;
     public int totalPago;
     public int liros;
 
-    public Venta(LocalDate fechaVenta, LocalDate fechaEntrega, String obervaciones, int totalPago, int litros) {
+    public Venta(LocalDate fechaVenta, LocalDate fechaEntrega, String obervaciones, int totalPago, int litros, String cliente, String producto, String vendedor, int cantidad) {
         this.fechaVenta = fechaVenta;
         this.fechaEntrega = fechaEntrega;
         this.obervaciones = obervaciones;
         this.totalPago = totalPago;
         this.liros = litros;
+        this.cliente = cliente;
+        this.vendedor = vendedor;
+        this.producto = producto;
+        this.cantidad = cantidad;
     }
     
     public Venta() {
@@ -25,6 +33,10 @@ public class Venta {
     this.obervaciones = "";
     this.totalPago = 0;
     this.liros = 0;
+    this.cliente = "";
+    this.vendedor = "";
+    this.producto = "";
+    this.cantidad = 0;
     }
 
     public LocalDate getFechaVenta() {
@@ -66,6 +78,37 @@ public class Venta {
     public void setLiros(int liros) {
         this.liros = liros;
     }
-    
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
     
 }
